@@ -2,31 +2,26 @@ class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
         
-        reverse(nums1.begin(), nums1.begin()+m);
-        reverse(nums1.begin(), nums1.end());
         
-        int i = n;
-        int k = 0;
-        int j = 0;
+        int i = m - 1; // Pointer for nums1
+        int j = n - 1; // Pointer for nums2
+        int k = m + n - 1; // Pointer for merged elements in nums1
+
+        while (j >= 0) {
         
-        while(i<(m+n) && j<n){
+            if (i >= 0 && nums1[i] > nums2[j]) {
+                nums1[k] = nums1[i]; // Place larger element from nums1 at the end of nums1
+                i--;
             
-            if(nums2[j] < nums1[i]){
-                nums1[k] = nums2[j];
-                k++; 
-                j++;
-            }else{
-                swap(nums1[k], nums1[i]);
-                k++; 
-                i++;
-            }           
-        }
-        
-        while(k < (m+n) && j<n){
-            nums1[k] = nums2[j];
-            k++; 
-            j++;
-        }    
+            } else {
+                nums1[k] = nums2[j]; // Place element from nums2 at the end of nums1
+                j--;            
+            }
+            
+            k--;        
+        }      
     }
 
 };
+
+//Optimal Space Approach
